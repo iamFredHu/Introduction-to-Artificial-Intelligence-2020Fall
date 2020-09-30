@@ -8,12 +8,6 @@
 */
 #include <stdio.h>
 
-struct state{
-    char atatMonkey[10]; 
-    char atBox[10]; 
-    char atBanana[10]; 
-} states ={"A","B","C"};
-
 int step = 0;
 
 void monkeyGo(char x,char y)
@@ -38,14 +32,19 @@ void catchBanana()
 
 int main(void)
 {
-	if(states.atatMonkey != states.atBox)
+
+	char atMonkey = 65; 
+    char atBox = 66; 
+    char atBanana = 67; 
+
+	if(atMonkey != atBox)
 	{
-		monkeyGo(states.atatMonkey,states.atBox);
+		monkeyGo(atMonkey,atBox);
 	}
 
-	if(states.atBox != states.atBanana)
+	if(atBox != atBanana)
 	{
-		moveBox(states.atBox,states.atBanana);
+		moveBox(atBox,atBanana);
 	}
 
 	climbBox();
