@@ -1,33 +1,25 @@
-/* åˆå§‹æ—¶ atatMonkey = 1 atBox = 2 atBanana = 3 onBox = 0 holdBanana = 0;
-   ç»ˆæ­¢æ—¶ atatMonkey = 2 atBox = 2 atBanana = 2 onBox = 1 holdBanana = 1;
-   æ¶‰åŠåˆ°çš„è°“è¯ï¼š
-   goto(a,b) çŒ´å­å°†ä»aèµ°åˆ°b
-   push(a,b) çŒ´å­å°†ç®±å­ä»aç§»åˆ°b
-   climb(a) çŒ´å­çˆ¬ä¸Ša
-   get(a) çŒ´å­æ‹¿åˆ°a
-*/
 #include <stdio.h>
 
 int step = 0;
 
 void monkeyGo(char x,char y)
 {
-	printf("Step %dï¼šçŒ´å­ä»%cèµ°åˆ°%c\n",++step,x,y);
+	printf("Step %d£ººï×Ó´Ó%c×ßµ½%c\n",++step,x,y);
 }
 
 void moveBox(char x,char y)
 {
-	printf("Step %dï¼šçŒ´å­æŠŠç®±å­ä»%cæ¬åˆ°%c\n",++step,x,y);
+	printf("Step %d£ººï×Ó°ÑÏä×Ó´Ó%c°áµ½%c\n",++step,x,y);
 }
 
 void climbBox()
 {
-	printf("Step %dï¼šçŒ´å­çˆ¬ä¸Šç®±å­\n",++step);
+	printf("Step %d£ººï×ÓÅÀÉÏÏä×Ó\n",++step);
 }
 
 void catchBanana()
 {
-	printf("Step %dï¼šçŒ´å­æ‹¿åˆ°é¦™è•‰\n",++step);
+	printf("Step %d£ººï×ÓÄÃµ½Ïã½¶\n",++step);
 }
 
 int main(void)
