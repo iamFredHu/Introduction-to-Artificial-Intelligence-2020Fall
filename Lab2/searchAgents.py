@@ -319,7 +319,7 @@ class CornersProblem(search.SearchProblem):
         """
 
         successors = []
-        print(state)
+        #print(state)
         for action in [Directions.NORTH, Directions.SOUTH, Directions.EAST, Directions.WEST]:
             # Add a successor state to the successor list if the action is legal
             # Here's a code snippet for figuring out whether a new position hits a wall:
@@ -357,8 +357,8 @@ class CornersProblem(search.SearchProblem):
             "*** YOUR CODE HERE ***"
 
         self._expanded += 1 # DO NOT CHANGE
-        print(successors)
-        print('***************************')
+        #print(successors)
+        #print('***************************')
         return successors
     
     
