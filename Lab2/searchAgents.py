@@ -453,6 +453,19 @@ def foodHeuristic(state, problem):
     problem.heuristicInfo['wallCount']
     """
     position, foodGrid = state
+    distances = []
+    foodList = foodGrid.asList()
+
+    for food in foodList:
+        if (position, food) in problem.heuristicInfo:
+            distances.append(problem.heuristicInfo[(position, food)])
+        else:
+            value = mazeDistance(position, food, problem.startingGameState)
+            problem.heuristicInfo[(position, food)] = value
+            distances.append(value)
+    if not distances:
+        return 0
+    return max(distances)
     "*** YOUR CODE HERE ***"
     return 0
 
