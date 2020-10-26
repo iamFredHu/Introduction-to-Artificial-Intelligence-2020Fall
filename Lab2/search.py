@@ -89,87 +89,63 @@ def depthFirstSearch(problem):
     print("Start's successors:", problem.getSuccessors(problem.getStartState()))
     """
     "*** YOUR CODE HERE ***"
-    actions = []
-    record = []
-    closedList = util.Stack()
-    openList = util.Stack()
-    openList.push(problem.getStartState())
-    while True:
-        if openList.isEmpty():
-            print("Can't solve!")
+    start_state = problem.getStartState()
+    queue = util.Stack()
+    queue1 = util.Stack()
+    queue.push((start_state,[]))
+    queuePased = util.Stack()
+    actions=[]
+    
+    "DFS"
+    while not queue.isEmpty():
+        if queue.isEmpty():
             return util.raiseNotDefined()
-            # to do
+    
+        i,action = queue.pop()
+    
+        if problem.isGoalState(i):
+            return action
+        if i not in queuePased.list:
+            queuePased.push(i)
 
-        node = openList.pop()
-        if problem.isGoalState(node):
-            break
+            
+            for j in problem.getSuccessors(i):
+                if j[0] not in queuePased.list:
+                    queue.push((j[0],action+[j[1]]))
+                                                    
 
-        if node not in closedList.list:
-            closedList.push(node)
-            for child in problem.getSuccessors(node):
-                # e.g. child = ((5, 4), 'South', 1)
-                if child[0] not in closedList.list:
-                    openList.push(child[0])
-                    record.append(child)
-
-    a = list(node)
-    while a != list(problem.getStartState()):
-        for child in record:
-            if list(child[0]) == a:
-                actions.append(child[1])
-                if child[1] == 'South':
-                    a[1] += 1
-                if child[1] == 'North':
-                    a[1] -= 1
-                if child[1] == 'East':
-                    a[0] -= 1
-                if child[1] == 'West':
-                    a[0] += 1
-    print(actions[::-1])
-    return actions[::-1]
+    return actions
 
 
 def breadthFirstSearch(problem):
     """Search the shallowest nodes in the search tree first."""
     "*** YOUR CODE HERE ***"
-    actions = []
-    record = []
-    closedList = util.Queue()
-    openList = util.Queue()
-    openList.push(problem.getStartState())
-    while True:
-        if openList.isEmpty():
-            print("Can't solve!")
+    start_state = problem.getStartState()
+    queue = util.Queue()
+    queue1 = util.Queue()
+    queue.push((start_state,[]))
+    queuePased = util.Queue()
+    actions=[]
+    
+    "BFS"
+    while not queue.isEmpty():
+        if queue.isEmpty():
             return util.raiseNotDefined()
-            # to do
+    
+        i,action = queue.pop()
+    
+        if problem.isGoalState(i):
+            return action
+        if i not in queuePased.list:
+            queuePased.push(i)
 
-        node = openList.pop()
-        if problem.isGoalState(node):
-            break
+            
+            for j in problem.getSuccessors(i):
+                if j[0] not in queuePased.list:
+                    queue.push((j[0],action+[j[1]]))
+                                                    
 
-        if node not in closedList.list:
-            closedList.push(node)
-            for child in problem.getSuccessors(node):
-                # e.g. child = ((5, 4), 'South', 1)
-                if child[0] not in closedList.list:
-                    openList.push(child[0])
-                    record.append(child)
-
-    a = list(node)
-    while a != list(problem.getStartState()):
-        for child in record:
-            if list(child[0]) == a:
-                actions.append(child[1])
-                if child[1] == 'South':
-                    a[1] += 1
-                if child[1] == 'North':
-                    a[1] -= 1
-                if child[1] == 'East':
-                    a[0] -= 1
-                if child[1] == 'West':
-                    a[0] += 1
-    print(actions[::-1])
-    return actions[::-1]
+    return actions
 
 
 def uniformCostSearch(problem):
@@ -202,11 +178,6 @@ def nullHeuristic(state, problem=None):
 def aStarSearch(problem, heuristic=nullHeuristic):
     """Search the node that has the lowest combined cost and heuristic first."""
     "*** YOUR CODE HERE ***"
-
-    print("Start:", problem.getStartState())
-    print("Is the start a goal?", problem.isGoalState(problem.getStartState()))
-    print("Start's successors:", problem.getSuccessors(problem.getStartState()))
-
     pqueue = util.PriorityQueue()
     actions = []
     visited = []
@@ -218,11 +189,10 @@ def aStarSearch(problem, heuristic=nullHeuristic):
         if node not in visited:
             visited.append(node)
             for child in problem.getSuccessors(node):
-                # tempActions = actions + [child[1]]
-                # nextCost = problem.getCostOfActions(actions + [child[1]]) + heuristic(child[0], problem)
+                #tempActions = actions + [child[1]]
+                #nextCost = problem.getCostOfActions(actions + [child[1]]) + heuristic(child[0], problem)
                 if child[0] not in visited:
-                    pqueue.push((child[0], actions + [child[1]]),
-                                problem.getCostOfActions(actions + [child[1]]) + heuristic(child[0], problem))
+                    pqueue.push((child[0], actions + [child[1]]), problem.getCostOfActions(actions + [child[1]]) + heuristic(child[0], problem))
     return actions
 
 

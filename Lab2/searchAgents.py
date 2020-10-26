@@ -319,7 +319,6 @@ class CornersProblem(search.SearchProblem):
         """
 
         successors = []
-        print(state)
         for action in [Directions.NORTH, Directions.SOUTH, Directions.EAST, Directions.WEST]:
             # Add a successor state to the successor list if the action is legal
             # Here's a code snippet for figuring out whether a new position hits a wall:
@@ -355,8 +354,6 @@ class CornersProblem(search.SearchProblem):
             "*** YOUR CODE HERE ***"
 
         self._expanded += 1  # DO NOT CHANGE
-        print(successors)
-        print('***************************')
         return successors
 
     def getCostOfActions(self, actions):
@@ -386,16 +383,30 @@ def cornersHeuristic(state, problem):
     shortest path from the state to a goal of the problem; i.e.  it should be
     admissible (as well as consistent).
     """
-    corners = problem.corners  # These are the corner coordinates
-    walls = problem.walls  # These are the walls of the maze, as a Grid (game.py)
 
-    "*** YOUR CODE HERE ***"
-    min_cost = 999
-    for j in corners:
-        if abs(state[0] - j[0]) + abs(state[1] - j[1]) < min_cost:
-            min_cost = abs(state[0] - j[0]) + abs(state[1] - j[1])
+    node = state
+    corners =[]
+    for i in range(2,6):
+        if not state[i]:
+            corners.append(problem.corners[i-2])
+    un_viscorner = [item for item in corners]
+    hn = minmanhattan(un_viscorner, state)#计算所有未经过的角落的到现在距离的最小曼哈顿值，一定比实际距离小
+ 
+    return hn
+def minmanhattan(corners, pos):
+    if len(corners) == 0:
+        return 0
+ 
+    hn = []
+    for loc in corners:
+        dis = abs(loc[0] - pos[0]) + abs(loc[1] - pos[1])+ minmanhattan([c for c in corners if c != loc], loc)
+        hn.append(dis)
+ 
+    return min(hn)
 
-    return min_cost  # Default to trivial solution
+
+def manhattanDis(pos, des):
+    return abs(pos[0] - des[0]) + abs(pos[1] - des[1])
 
 class AStarCornersAgent(SearchAgent):
     "A SearchAgent for FoodSearchProblem using A* and your foodHeuristic"
